@@ -27,19 +27,43 @@
 
 	<div id="sidebar" class="sidebar">
 		<header id="masthead" class="site-header" role="banner">
-			<div class="site-branding">
-				<?php
-					if ( is_front_page() && is_home() ) : ?>
-						<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-					<?php else : ?>
-						<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-					<?php endif;
 
-					$description = get_bloginfo( 'description', 'display' );
-					if ( $description || is_customize_preview() ) : ?>
-						<p class="site-description"><?php echo $description; ?></p>
-					<?php endif;
-				?>
+
+        <?php
+
+
+
+		if(pll_current_language()=="ru")
+		{ ?>
+			<a href="<?php echo get_home_url()?>"><img src="<?php
+				echo esc_url( get_template_directory_uri()); ?>/img/logo02.png" alt="logo"></a>
+		<?php
+		}else
+		{?>
+
+			<a href="<?php echo get_home_url()?>"><img src="<?php
+				echo esc_url( get_template_directory_uri()); ?>/img/logo01.png" alt="logo"></a>
+		<?php } ?>
+
+
+			<div class="site-branding">
+
+<!--				нижк блок разблокировать -->
+<!--				--><?php
+//					if ( is_front_page() && is_home() ) : ?>
+<!---->
+<!--						<h1 class="site-title"><a href="--><?php //echo esc_url( home_url( '/' ) ); ?><!--" rel="home">--><?php //bloginfo( 'name' ); ?><!--</a></h1>-->
+<!--					--><?php //else : ?>
+<!--						<p class="site-title"><a href="--><?php //echo esc_url( home_url( '/' ) ); ?><!--" rel="home">--><?php //bloginfo( 'name' ); ?><!--</a></p>-->
+<!--					--><?php //endif;
+//
+//					$description = get_bloginfo( 'description', 'display' );
+//					if ( $description || is_customize_preview() ) : ?>
+<!--						<p class="site-description">--><?php //echo $description; ?><!--</p>-->
+<!--					--><?php //endif;
+//				?>
+
+
 				<button class="secondary-toggle"><?php _e( 'Menu and widgets', 'twentyfifteen' ); ?></button>
 			</div><!-- .site-branding -->
 		</header><!-- .site-header -->

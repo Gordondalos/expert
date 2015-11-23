@@ -1339,7 +1339,7 @@ div.error p,
 
 .notice-success,
 div.updated {
-	border-color: #7ad03a;
+	border-color: grey;
 }
 
 .notice-warning {
