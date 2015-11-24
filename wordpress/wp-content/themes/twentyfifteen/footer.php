@@ -22,7 +22,8 @@
 				 */
 				do_action( 'twentyfifteen_credits' );
 			?>
-			<a href="#">Сценарный эксперт</a>
+
+			<a href="#">Copyright © 2015 Сценарный эксперт, Все права защищены</a>
 		</div><!-- .site-info -->
 	</footer><!-- .site-footer -->
 
