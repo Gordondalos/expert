@@ -4371,7 +4371,7 @@ p > video {
 		background-color: transparent;
 		border-bottom: 0;
 		margin: 20% 0;
-		padding: 0 20%;
+		padding: 0 5%;
 	}
 
 	.site-branding {
@@ -6065,7 +6065,7 @@ p > video {
 
 }
 #masthead{
-	margin: 10% 0 5%;
+	margin: 0 0 5%;
 }
 
 ul.products li.product{
@@ -6108,3 +6108,33 @@ ul.products li.product h3{
 }
 
 
+.woocommerce-page div.product div.summary{
+	float: none !important;
+	width: 100% !important;
+}
+
+.woocommerce-page div.product div.images{
+	width: 10% !important;
+	float: none !important;
+}
+
+form.cart input{
+	margin: 10px auto;
+}
+
+form.cart textarea{
+	margin: 10px auto;
+}
+
+form.cart select{
+	margin: 10px auto;
+	padding: 10px;
+}
+
+form.cart #file{
+	width: 100%;
+}
+
+.woocommerce div.product form.cart .button{
+	float: right !important;
+}

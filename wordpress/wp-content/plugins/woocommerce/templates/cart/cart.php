@@ -11,9 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+
+
+
+
+
 wc_print_notices();
 
 do_action( 'woocommerce_before_cart' ); ?>
+
+
 
 <form action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
 
@@ -34,9 +41,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
 		<?php
+
+
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 			$product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+
 
 			if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 				?>
@@ -56,6 +67,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<td class="product-thumbnail">
 						<?php
+
+
 							$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 
 							if ( ! $_product->is_visible() ) {
@@ -68,6 +81,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<td class="product-name">
 						<?php
+
 							if ( ! $_product->is_visible() ) {
 								echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;';
 							} else {
@@ -92,6 +106,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<td class="product-quantity">
 						<?php
+
 							if ( $_product->is_sold_individually() ) {
 								$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
 							} else {

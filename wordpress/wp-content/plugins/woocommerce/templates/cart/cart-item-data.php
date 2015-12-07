@@ -9,6 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 ?>
 <dl class="variation">
 	<?php foreach ( $item_data as $data ) : ?>

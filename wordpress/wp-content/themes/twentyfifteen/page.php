@@ -13,6 +13,25 @@
 
 get_header(); ?>
 
+<div style="position: absolute; top:40px ;right: 75px;">
+	<?php //echo get_bloginfo("language");
+	if(get_bloginfo("language")=="ru-RU"){
+		echo "<a href='";
+		echo home_url('/en/home/');
+		echo "'>";
+		echo "<img src='".get_bloginfo("template_directory")."/img/eng.gif'>";
+		echo "</a>";
+	}else{
+		echo "<a href='";
+		echo home_url('/en/главная/');
+		echo "'>";
+		echo "<img src='".get_bloginfo("template_directory")."/img/rus.gif'>";
+		echo "</a>";
+
+	}
+	?>
+</div>
+
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
