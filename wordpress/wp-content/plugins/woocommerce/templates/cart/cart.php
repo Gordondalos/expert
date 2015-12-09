@@ -12,7 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+$myval = $_POST['post'];
+$myval = str_replace("\\","",$myval);
+$myval =unserialize($myval);
 
+var_dump($myval);
 
 
 

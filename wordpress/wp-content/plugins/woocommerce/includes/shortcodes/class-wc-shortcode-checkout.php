@@ -9,6 +9,8 @@
  * @package 	WooCommerce/Shortcodes/Checkout
  * @version     2.0.0
  */
+
+
 class WC_Shortcode_Checkout {
 
 	/**
@@ -84,7 +86,7 @@ class WC_Shortcode_Checkout {
 			// Pay for existing order
 			$order_key            = $_GET[ 'key' ];
 			$order                = wc_get_order( $order_id );
-			
+
 			if ( ! current_user_can( 'pay_for_order', $order_id ) ) {
 				echo '<div class="woocommerce-error">' . __( 'Invalid order. If you have an account please log in and try again.', 'woocommerce' ) . ' <a href="' . wc_get_page_permalink( 'myaccount' ) . '" class="wc-forward">' . __( 'My Account', 'woocommerce' ) . '</a>' . '</div>';
 				return;
@@ -117,7 +119,7 @@ class WC_Shortcode_Checkout {
 			// Pay for order after checkout step
 			$order_key            = isset( $_GET['key'] ) ? wc_clean( $_GET['key'] ) : '';
 			$order                = wc_get_order( $order_id );
-			
+
 			if ( $order->id == $order_id && $order->order_key == $order_key ) {
 
 				if ( $order->needs_payment() ) {
@@ -132,10 +134,13 @@ class WC_Shortcode_Checkout {
 							<?php _e( 'Date:', 'woocommerce' ); ?>
 							<strong><?php echo date_i18n(get_option('date_format'), strtotime($order->order_date)); ?></strong>
 						</li>
-						<li class="total">
-							<?php _e( 'Total:', 'woocommerce' ); ?>
-							<strong><?php echo $order->get_formatted_order_total(); ?></strong>
-						</li>
+<!--						<li class="total">-->
+<!--					-->
+<!---->
+<!---->
+<!--							--><?php //_e( 'Total:', 'woocommerce' ); ?>
+<!--							<strong>--><?php //echo $order->get_formatted_order_total(); ?><!--</strong>-->
+<!--						</li>-->
 						<?php if ($order->payment_method_title) : ?>
 						<li class="method">
 							<?php _e( 'Payment Method:', 'woocommerce' ); ?>

@@ -6138,3 +6138,7 @@ form.cart #file{
 .woocommerce div.product form.cart .button{
 	float: right !important;
 }
+
+.woocommerce form .form-row{
+	width: 100%;
+}

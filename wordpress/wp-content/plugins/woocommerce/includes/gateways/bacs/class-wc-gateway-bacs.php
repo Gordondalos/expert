@@ -275,7 +275,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 
 		if ( ! empty( $bacs_accounts ) ) {
 			echo '<h2>' . __( 'Our Bank Details', 'woocommerce' ) . '</h2>' . PHP_EOL;
-			
+
 			foreach ( $bacs_accounts as $bacs_account ) {
 
 				$bacs_account = (object) $bacs_account;

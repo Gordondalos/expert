@@ -7,6 +7,14 @@
  * @version     2.1.2
  */
 
+
+//var_dump($_POST);
+
+$myval = $_POST['post'];
+$myval = str_replace("\\","",$myval);
+$myval =unserialize($myval);
+
+//var_dump($myval);
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -28,7 +36,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php foreach ( $checkout->checkout_fields['billing'] as $key => $field ) : ?>
 
-		<?php woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
+		<?php
+
+		//echo $key."<br>";
+//echo $key;
+
+		switch ($key) {
+			case "billing_first_name":	$values = $myval['avtor']; break;
+			case "billing_last_name":	$values = $myval['avtor']; break;
+			case "billing_email":	$values = $myval['mail']; break;
+			case "billing_address_2":	$values = $myval['cyti']; break;
+			case "billing_address_1":	$values = $myval['adress']; break;
+			case "billing_phone":	$values = $myval['phone']; break;
+			case "billing_city":	$values = $myval['cyti']; break;
+			case "billing_state":	$values = $myval['country']; break;
+			case "billing_postcode":	$values = $myval['index_post_mail']; break;
+			case "billing_mobile":	$values = $myval['phone']; break;
+
+
+		}
+
+
+
+
+		?>
+<!--		--><?php //woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
+		<?php woocommerce_form_field( $key, $field, $values); ?>
+
+
+
 
 	<?php endforeach; ?>
 
