@@ -59,24 +59,44 @@ if (!$link) {
 	die('Ошибка соединения: ' . mysql_error());
 }
 
-	$adress = $myval['adress'];
-	$city = $myval['city'];
-	$country = $myval['country'];
-	$index_post_mail = $myval['index_post_mail'];
-	$phone_customer = $myval['phone_customer'];
-	$mail = $myval['mail'];
-	$name_scenario = $myval['name_scenario'];
-	$page_count = $myval['page_count'];
-	$genre = $myval['genre'];
-	$guestion = $myval['guestion'];
-	$price = $myval['service'];
-	$fast = $myval['fast'];
-	$license = $myval['license'];
-	$customer = $myval['customer'];
-	$path_to_the_file = $myval['path_to_the_file'];
-	$avtor = $myval['avtor'];
 
-	$date = date(DATE_RFC2822);
+	function clearData($data)
+	{
+
+		$data = stripslashes($data); // Возвращает строку с вырезанными обратными слэшами
+		$data = strip_tags($data); // Вырезает тэги HTML и PHP
+		$data = trim($data); // вырезает пустое пространство в начале и в конце строки.
+		$data = str_replace("'", "", $data);
+		$data = str_replace("\"", "", $data);
+		$data = str_replace("/", "", $data);
+		$data = str_replace(".", "", $data);
+		$data = str_replace("-", "_", $data);
+		//$data =  mysql_real_escape_string($data);
+
+		return $data;
+	}
+
+
+	$adress = clearData($myval['adress']);
+	$city = clearData($myval['city']);
+	$country = clearData($myval['country']);
+	$index_post_mail = clearData($myval['index_post_mail']);
+	$phone_customer = clearData($myval['phone_customer']);
+	$mail = $myval['mail'];
+	$name_scenario = clearData($myval['name_scenario']);
+	$page_count = clearData($myval['page_count']);
+	$genre = clearData($myval['genre']);
+	$question = clearData($myval['question']);
+	$price = clearData($myval['service']);
+	$fast = clearData($myval['fast']);
+	$license = clearData( $myval['license']);
+	$customer = clearData($myval['customer']);
+	$path_to_the_file = $myval['path_to_the_file'];
+	$avtor = clearData($myval['avtor']);
+
+
+
+
 
 
 $query = "INSERT INTO `_wpsales` SET
@@ -90,11 +110,11 @@ $query = "INSERT INTO `_wpsales` SET
 			`name_scenario` = '{$name_scenario}',
 			`page_count` = '{$page_count}',
 			`genre` = '{$genre}',
-			`question` = '{$guestion}',
+			`question` = '{$question}',
 			`price` = '{$price}',
 			`fast` = '{$fast}',
 			`licinse` = '{$license}',
-			`date` = '{$date}',
+			`date` = now(),
 			`customer` = '{$customer}',
 			`path_to_the_file` = '{$path_to_the_file}'
 			";
@@ -103,6 +123,54 @@ $query = "INSERT INTO `_wpsales` SET
 $res = mysql_query($query) or die(mysql_error());
 
 	if($res){
+
+		$inv_desc =
+			"Сумма заказа: ".$price."р.".
+			",<br> Заказчик: ".$customer.
+			",<br> Автор: ".$avtor.
+			",<br>  Email: ".$mail.
+			",<br>  Телефон: ".$phone_customer.
+			",<br>  Название сценария: ".$name_scenario.
+			",<br>  Количество страниц: ".$page_count.
+			",<br>  Срочное обращение (on - да): ".$fast.
+			",<br>  Физический адрес файла на сервере: ".$path_to_the_file.
+			",<br>  Номер заказа: ".$id.
+			",<br>  Дата заказа: ". $date;
+
+
+
+
+
+
+//		отправляю почту
+		$name = trim(strip_tags($customer));
+		$mail = trim(strip_tags($mail));
+		$phone = trim(strip_tags($phone_customer));
+		$to = $phone_customer.', gordondalos@gmail.com';
+		$from = 'gordondalos@gmail.com, gordondalos@gmail.com';
+		$subject = "=?utf-8?B?" . base64_encode("Новая заявка с сайта {$_SERVER['HTTP_HOST']}") . "?=";
+		$message = "<p>".$inv_desc."</p>
+<h1>Данные заказчика:</h1>
+<ul style=\"margin:0; padding:0;\">
+  	<li style=\"list-style:none;\"><b>Имя: </b>".$name."</li>
+  	<li style=\"list-style:none;\"><b>E-mail: </b>".$mail."</li>
+  	<li style=\"list-style:none;\"><b>Телефон: </b>".$phone."</li>
+</ul>";
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$headers .= "From:"."=?utf-8?B?" . base64_encode($_SERVER['HTTP_HOST']) . "?=". "<$from>\r\n";
+		if(mail($to, $subject, $message, $headers)) {
+			//header('Refresh:6; URL=http://www.nlsite.ru/');
+			echo "<p style='font-size: 25px;'>Спасибо: Информация о заказе направлена вам на почту.";
+		} else {
+			echo "<div class=\"alert alert-danger\" role=\"alert\">Письмо не отправлено, вероятно причина в ошибке адреса, скопируйте описание платежа или хотябы номер заказа</div>";
+		}
+
+
+	// все отправилось
+
+
+
 
 		$id = mysql_insert_id();
 
@@ -143,7 +211,7 @@ echo "<h2>Описание платежа</h2>";
 			",<br>  Телефон: ".$phone_customer.
 			",<br>  Название сценария: ".$name_scenario.
 			",<br>  Количество страниц: ".$page_count.
-			",<br>  Срочное обращение (on - да, off - нет): ".$fast.
+			",<br>  Срочное обращение (on - да): ".$fast.
 			",<br>  Физический адрес файла на сервере: ".$path_to_the_file.
 			",<br>  Номер заказа: ".$id.
 			",<br>  Дата заказа: ". $date;
@@ -183,7 +251,7 @@ echo "<h2>Описание платежа</h2>";
 		// payment form
 		print
 			"<html>".
-			"<form action='https://auth.robokassa.ru/Merchant/Index.aspx' method=POST>".
+			"<form action='https://test.robokassa.ru/Merchant/Index.aspx' method=POST>".
 			"<input type=hidden name=MrchLogin value=$mrh_login>".
 			"<input type=hidden name=OutSum value=$out_summ>".
 			"<input type=hidden name=InvId value=$inv_id>".
@@ -199,6 +267,15 @@ echo "<h2>Описание платежа</h2>";
 			"</form></html>";
 
 
+
+
+
+
+
+
+?>
+
+<?php
 	}
 
 

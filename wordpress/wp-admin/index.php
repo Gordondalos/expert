@@ -92,8 +92,112 @@ $screen->set_help_sidebar(
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 
+
+<?php
+
+$host = "localhost";
+$user = 'root';
+$password = "";
+$database = "wordpress";
+
+
+$link = mysql_connect($host, $user, $password);
+mysql_set_charset('utf8',$link);
+mysql_select_db($database);
+//echo "Соединение установлено";
+if (!$link) {
+	die('Ошибка соединения: ' . mysql_error());
+}
+
+
+$query = "SELECT * FROM `_wpsales` ORDER BY `id` DESC LIMIT 25";
+
+//var_dump($query);
+$data = mysql_query($query) or die(mysql_error());
+;
+function db2Array($data)
+{
+	$arr = array();
+	while ($row = mysql_fetch_assoc($data)) {
+		$arr[] = $row;
+	}
+	return $arr;
+}
+
+$res = db2Array($data);
+//var_dump($res);
+//extract($res, EXTR_OVERWRITE);
+
+?>
+
+	<style>
+		td,th{
+			border: 1px solid grey;
+		}
+	</style>
+	<table>
+		<tr>
+			<th>Дата</th>
+			<th>№ заказа</th>
+			<th>Заказчик / телефон / адрес/ почта</th>
+			<th>Автор/Количесвто страниц/Жанр/Название Сценария </th>
+			<th>Откуда</th>
+			<th>Цена экспертизы</th>
+			<th>Быстро</th>
+			<th>Путь до файла сценария</th>
+			<th>Статус</th>
+
+<?php
+
+foreach($res as $value){
+	extract($value, EXTR_OVERWRITE);
+	echo "<tr>";
+		echo "<td>".$date."</td>";
+		echo "<td>".$id."</td>";
+		echo "<td>".$customer." / ".$phone_customer." / ".$city.", ".$country.", ".$index_post_mail.", ".$adress.", ".$mail."</td>";
+		echo "<td>".$avtor. ", (".$page_count."страниц)".", ".$genre.", ".$name_scenario."</td>";
+		echo "<td>".$question."</td>";
+		echo "<td>".$price."</td>";
+			$fast = ($fast) ? "Да" : "Нет";
+		echo "<td style='text-align: center;'>".$fast."</td>";
+		echo "<td>".$path_to_the_file."</td>";
+		echo "<td>Не оплачено"."</td>";
+
+	echo "</tr>";
+
+}
+
+
+
+?>
+		</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="wrap">
 	<h1><?php echo esc_html( $title ); ?></h1>
+
 
 <?php if ( has_action( 'welcome_panel' ) && current_user_can( 'edit_theme_options' ) ) :
 	$classes = 'welcome-panel';

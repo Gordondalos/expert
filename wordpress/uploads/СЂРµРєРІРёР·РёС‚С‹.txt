@@ -1,0 +1,10 @@
+Для зачисления российских рублей
+Intermediary                     ОАО "Сбербанк России", г.Москва, Россия
+(Банк-посредник)                  SWIFT:SABRRUMM012
+                                 Account Number:30111810400000000415
+Bank of Beneficiary              "Optima Bank" OJSC? Bishkek,Kyrgyz Republic
+(Банк получателя)               SWIFT:ENEJKG22 
+
+Beneficiary(Получатель)          счет 1806432099950001, Бондаренко Евгений Сергеевич
+Purpose of payment               4169605147472216, за что, согласно чему и т.д.
+(Назначение платежа)
